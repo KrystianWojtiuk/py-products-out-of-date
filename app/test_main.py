@@ -1,3 +1,5 @@
+from typing import Generator
+
 from app.main import outdated_products
 import datetime
 from unittest.mock import patch
@@ -67,6 +69,11 @@ import pytest
     ]
 )
 @patch("app.main.datetime.date")
-def test_outdated_products(mock_date, product_list, today_date, expected):
+def test_outdated_products(
+        mock_date: Generator,
+        product_list: list,
+        today_date: datetime.date,
+        expected: list
+) -> None:
     mock_date.today.return_value = today_date
     assert outdated_products(product_list) == expected
